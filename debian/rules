@@ -1,4 +1,51 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+UMD=node bin/cli.js
 
 %:
 	dh $@
+
+
+index.js: source.js template.min.js
+	brfs < $< | dos2unix > $@
+
+template.min.js: template.js
+	uglifyjs $< | dos2unix > $@
+
+override_dh_auto_build: index.js template.min.js
+
+examples/cjs/bundle.js: examples/cjs/index.js
+	$(UMD) -c common-js-module < $< > $@
+
+examples/raw/bundle.js: examples/raw/index.js
+	$(UMD) common-js-module < $< > $@
+
+examples/constructor/bundle.js: examples/constructor/index.js
+	$(UMD) Common-Js-Module < $< > $@
+
+
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS) $(DEB_BUILD_PROFILES)))
+override_dh_installexamples: examples/cjs/bundle.js examples/raw/bundle.js examples/constructor/bundle.js
+	# test examples
+	node -e "console.log(require('./examples/cjs/bundle')); \
+		   console.log(require('./examples/raw/bundle')); \
+		   console.log(require('./examples/constructor/bundle'));"
+	dh_installexamples
+	# remove build.js (non functionnal)
+	rm -f debian/node-umd/usr/share/doc/node-umd/examples/build.js
+	find $(CURDIR)/debian/node-umd/usr/share/doc/node-umd/examples/ -name '*.js' -exec \
+		sed -i "s,require\s*[(]\s*'[.][.][^']*'\s*[)],require('umd'),g" {} \;
+else
+override_dh_installexamples:
+	@echo '**********************************************************'
+	@echo 'Skip example build                                        '
+	@echo '**********************************************************'
+endif
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod +x debian/node-umd/usr/share/nodejs/umd/bin/cli.js
