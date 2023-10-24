@@ -1,15 +1,37 @@
-Source: template-repository
-Section: unknown
+Source: node-umd
+Section: javascript
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Bastien Roucariès <rouca@debian.org>
+Build-Depends: debhelper-compat (= 13)
+ , dh-sequence-nodejs
+ , dos2unix
+ , mocha (>= 4) <!nocheck>
+ , node-brfs
+ , uglifyjs
+Standards-Version: 4.6.0
+Vcs-Browser: https://salsa.debian.org/js-team/node-umd
+Vcs-Git: https://salsa.debian.org/js-team/node-umd.git
+Homepage: https://github.com/ForbesLindesay/umd
+Testsuite: autopkgtest-pkg-nodejs
+Rules-Requires-Root: no
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: node-umd
+Architecture: all
+Depends: ${misc:Depends}
+ , nodejs:any
+Provides: ${nodejs:Provides}
+Multi-Arch: foreign
+Description: Universal Module Definition for use in automated build systems
+ UMD (Universal Module Definition) is a common pattern used in javascript
+ programming allowing one to write once a loader working in different
+ context (server, browser). This loader is compatible with different
+ API like RequireJS, AMD  or CommonJs.
+ .
+ This module provides:
+  - simple synchronous wrapping of a string
+  - return style module support
+  - CommonJS support
+  - support preventing internal UMDs from conflicting
+ .
+ Node.js is an event-based server-side JavaScript engine.

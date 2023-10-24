@@ -1,0 +1,33 @@
+.Dd 10/4/17
+.Dt umd 1
+.Sh NAME
+.Nm umd
+.Nd Universal Module Definition for use in automated build systems
+.Sh SYNOPSIS
+.Nm
+.Op Fl c
+name
+.Sh DESCRIPTION
+.Nm
+(Universal Module Definition) is a common pattern used in javascript
+programming allowing one to write once a loader working in different
+context (server, browser). This loader is compatible with different
+API like RequireJS, AMD  or CommonJs.
+.
+This command provides simple synchronous wrapping of a string, return style module support, CommonJS support
+and support preventing internal UMDs from conflicting.
+.
+Required parameter name is used for exporting module.
+.Sh OPTIONS
+.Bl -tag -width -indent
+.It Fl c, Fl Fl commonJS
+Use CommonJS module format
+.El
+.Pp
+.Sh EXAMPLES
+.nf
+umd -c my-module < my-module.js > my-module.umd
+cat my-module.js | umd my-module | uglifyjs > my-module.umd.min.js
+.fi
+.Sh SEE ALSO
+.Xr nodejs 1

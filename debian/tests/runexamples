@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT INT TERM HUP
+
+cp -r /usr/share/doc/node-umd/examples $tmpdir
+umd -c common-js-module < $tmpdir/examples/cjs/index.js > $tmpdir/examples/cjs/bundle.js
+umd common-js-module < $tmpdir/examples/raw/index.js > $tmpdir/examples/raw/bundle.js
+umd Common-Js-Module < $tmpdir/examples/constructor/index.js > $tmpdir/examples/constructor/bundle.js
+cd $tmpdir
+node << "EOF"
+console.log(require('./examples/cjs/bundle'));
+console.log(require('./examples/raw/bundle'));
+console.log(require('./examples/constructor/bundle'));
+EOF

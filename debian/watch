@@ -1,0 +1,11 @@
+version=4
+opts="\
+dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+filenamemangle=s/.*?(\d[\d\.-]*@ARCHIVE_EXT@)/node-umd-$1/,\
+repacksuffix=+ds" \
+ https://github.com/ForbesLindesay/umd/tags .*/archive/.*/v?([\d\.]+).tar.gz group
+
+# It is not recommended use npmregistry. Please investigate more.
+# Take a look at https://wiki.debian.org/debian/watch/
+opts="searchmode=plain,component=types-umd,ctype=nodejs,pgpmode=none,filenamemangle=s/^.*?(\d[\d\.-]*@ARCHIVE_EXT@)/node-types-umd-$1/" \
+ https://registry.npmjs.org/@types/umd https://registry.npmjs.org/@types/umd/-/umd-([\d\.]+)@ARCHIVE_EXT@ group

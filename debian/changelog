@@ -1,5 +1,52 @@
-template-repository (1.0-1) unstable; urgency=medium
+node-umd (3.0.3+ds+~3.0.1-1) unstable; urgency=medium
 
-  * Initial release
+  * Team upload
+  * Fix GitHub tags regex
+  * Update standards version to 4.6.0, no changes needed.
+  * Fix filenamemangle
+  * Update nodejs dependency to nodejs:any
+  * Embed typescript declarations and repack
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Yadd <yadd@debian.org>  Tue, 28 Dec 2021 12:28:01 +0100
+
+node-umd (3.0.3+ds-3) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Bump debhelper from old 11 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Apply multi-arch hints.
+    + node-umd: Add Multi-Arch: foreign.
+
+  [ Xavier Guimard ]
+  * Bump debhelper compatibility level to 13
+  * Declare compliance with policy 4.5.1
+  * Add "Rules-Requires-Root: no"
+  * Add debian/gbp.conf
+  * Replace deprecated no-uglify by uglifyjs (Closes: #979948)
+  * Use sh-sequence-nodejs auto test & install
+
+ -- Xavier Guimard <yadd@debian.org>  Tue, 12 Jan 2021 13:34:08 +0100
+
+node-umd (3.0.3+ds-2) unstable; urgency=medium
+
+  * Fix CI
+
+ -- Bastien Roucariès <rouca@debian.org>  Wed, 23 May 2018 23:39:10 +0200
+
+node-umd (3.0.3+ds-1) unstable; urgency=medium
+
+  * Improve rules
+  * Move to salsa
+  * Bump policy and compat
+
+ -- Bastien Roucariès <rouca@debian.org>  Sat, 19 May 2018 15:58:09 +0200
+
+node-umd (3.0.1+ds-1) unstable; urgency=low
+
+  * Initial release (Closes: #840616)
+
+ -- Bastien Roucariès <rouca@debian.org>  Fri, 14 Apr 2017 15:00:11 +0200
